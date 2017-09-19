@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>流星Demo</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+
+  </body>
+    <script type="text/javascript" src="../../js/laya.core.js"></script>
+    <script type="text/javascript" src="../../js/laya.ani.js"></script>
+    <script type="text/javascript" src="../../js/laya.webgl.js"></script>
+    <script type="text/javascript" src="../../js/laya.particle.js"></script>
+    <script type="text/javascript" src="../../js/laya.d3.js"></script>
+    <script type="text/javascript" src="../../js/laya.d3Plugin.js"></script>
+    <script type="text/javascript" src="../../js/laya.ui.js"></script>
+    <script type="text/javascript" src="./meteor.js"></script>
+     
+
+<script type="text/javascript">
+
+
+
+
+
+(function()
+{
+    var Sprite  = Laya.Sprite;
+    var Stage   = Laya.Stage;
+    var Event   = Laya.Event;
+    var Browser = Laya.Browser;
+    var WebGL   = Laya.WebGL;
+
+    var ape;
+    var scaleDelta = 0;
+
+    (function()
+    {
+        // 不支持WebGL时自动切换至Canvas
+        Laya.init(Browser.clientWidth, Browser.clientHeight, WebGL);
+
+        Laya.stage.alignV = Stage.ALIGN_MIDDLE;
+        Laya.stage.alignH = Stage.ALIGN_CENTER;
+
+        Laya.stage.scaleMode = "showall";
+        Laya.stage.bgColor = "#000";
+        var meteorManager = new MeteroManager();
+        Laya.stage.addChild(meteorManager);
+        // 随机流星
+        meteorManager.play(20);
+    })();
+})();
+</script>
