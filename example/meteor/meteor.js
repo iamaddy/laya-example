@@ -1,15 +1,13 @@
 var WID = 91,
     HEI = 207;
 var Browser = Laya.Browser;
-/**
- * 游戏加载类
- */
+
 class Metero extends Laya.Sprite {
     constructor() {
         super();
         this.SPEED = ~~(Math.random() * 4) + 1; //随机速度
         this.zoom = ~~(Math.random() * 5) + 2 // 随机缩小大小
-        //this.rotation = 30;
+
         this._alpha = 1;
         this.alpha = 0;
         this.init();
