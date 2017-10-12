@@ -1,4 +1,4 @@
-#Cocos  Creator 与Laya开发差异
+# Cocos  Creator 与Laya开发差异
 
 为了适配微信小程序开发，需要改引擎的代码，大概40处左右，主要是将DOM和BOM操作的相关接口改掉。
 
