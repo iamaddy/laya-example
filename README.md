@@ -5,6 +5,7 @@
 
 1、[H5游戏的一些基础概念](https://github.com/iamaddy/laya-example/blob/master/wiki/H5%E6%B8%B8%E6%88%8F%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5.md)
 
+2、[Cocos  Creator 与Laya开发差异](https://github.com/iamaddy/laya-example/blob/master/wiki/Cocos%20%20Creator%20%E4%B8%8ELaya%E5%BC%80%E5%8F%91%E5%B7%AE%E5%BC%82.md)
 
 ## 碰撞检测
 2D游戏中的碰撞检测，这篇[文章](https://github.com/JChehe/blog/issues/8)总结的不错
