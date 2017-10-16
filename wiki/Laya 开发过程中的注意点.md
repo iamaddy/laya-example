@@ -73,7 +73,11 @@ mouseup、mousedown等事件在移动端会默认转换为touch对应的事件�
 
 ### 4、多倍图
 
-主要为retina屏幕的表现，原理同html。如果是2倍图，那么就需要设计屏幕尺寸2倍大小的图片。但是laya实际上绘制的时候是以设备的物理尺寸绘制的，所以在绘制图片的时候，需要缩放原来的尺寸。否则看起来就很大。https://wximg.qq.com/wxgame/bottlefly/feichuang2/1.png这张图片的实际大小是86*106，最终被绘制的大小是43,53。除了这样还可以设置Sprite的scale大小为0.5。
+主要为retina屏幕的表现，原理同html。如果是2倍图，那么就需要设计屏幕尺寸2倍大小的图片。但是laya实际上绘制的时候是以设备的物理尺寸绘制的，所以在绘制图片的时候，需要缩放原来的尺寸。否则看起来就很大。
+
+https://wximg.qq.com/wxgame/bottlefly/feichuang2/1.png
+
+这张图片的实际大小是86*106，最终被绘制的大小是43,53。除了这样还可以设置Sprite的scale大小为0.5。
 
 ```
 var sp = new Laya.Sprite();
