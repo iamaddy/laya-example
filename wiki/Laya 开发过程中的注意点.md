@@ -176,13 +176,79 @@ hitArea.hit = graphics;
 this.monkey.hitArea = hitArea;
 ```
 
-8、Graphics
+### 8、Graphics
 
 绘制矢量图形的类。
 填充色居然没有透明色，设置alpha，则会整体透明。需要绘制一个圆环都很费劲，可能还是没找到正确的接口。后来发现fillColor可以传递rgba(255,255,255,0)色值，算是一种hack方法。
 
 
-未完待续。
+### 9、Laya 中的卡顿问题
+
+在测试过程中发现有很频繁的卡顿，而且是比较大的卡顿。最后通过日志分析发现，是在创建圆头像的时候出现了这种问题。下面这段代码就是离屏canvas裁剪圆头像的逻辑：
+
+```
+var draw = function(obj) {
+    var offScreenCanvas = wx.createCanvas();
+
+    var offScreenContext = offScreenCanvas.getContext('2d');
+    offScreenCanvas.width = obj.width;
+    offScreenCanvas.height = obj.height;
+    // 创建图片纹理
+    offScreenContext.beginPath();
+    offScreenContext.arc(obj.width / 2, obj.height / 2, Math.max(obj.width, obj.height) / 2, 0, 2 * Math.PI);
+    offScreenContext.clip();
+    offScreenContext.drawImage(obj, 0, 0, obj.width, obj.height);
+
+    let img = new Laya.Image();
+    img.skin = offScreenCanvas.toDataURL();
+    offScreenCanvas = null;
+    return img;
+}
+```
+
+如果用一个for循环来执行他，就知道会有多耗性能了
+
+```
+for(var i = 0; i < 100; i++){
+	draw(img);
+}
+```
+
+页面至少要卡2s以上，所以要避免过度使用图像裁剪功能。
+
+### 10、内存优化
+
+官方提到对象池的概念，这种可以理解为key-value字典，将要移除的对象放进池子里面，下次要创建的时候再拿出来。从而避免，对象回收与对象创建的内存消耗，而且对象回收也不是立马能够回收掉，要等到v8来做真正的回收操作，js层面仅仅只能做到设置为null。这种场景适用于需要频繁创建的对象。
+
+当然对构造函数也有要求。不要将对象私有的属性通过构造函数初始化，而应该通过属性或者函数来控制。
+
+
+```
+class Man{
+	constructor() {
+    }
+    init(score, type){
+    }
+};
+
+var man = new Man();
+man.init(100, 1);
+// 回收
+Laya.Pool.recover('Man', man);
+// 从对象池里新创建，其实用的就是上面的man
+var new_man = Laya.Pool.getItemByClass('Man');
+// 改变属性
+new_man.init(300, 2);
+
+```
+
+后来通过阅读源码，还发现一种针对资源回收的方法：
+
+```
+Laya.ResourceManager._systemResourceManager.garbageCollection();
+```
+
+所有的资源都会由_systemResourceManager对象管理，garbageCollection内部核心也是将资源对象置为null。
 
 
 
